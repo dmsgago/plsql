@@ -22,9 +22,9 @@ IS
 	cont_ap NUMBER:=0;
 	cont_not NUMBER:=0;
 	cont_sob NUMBER:=0;
-	v_nom_max VARCHAR2(50):="0";
+	v_nom_max VARCHAR2(50):='';
 	v_nota_max NUMBER:=0;
-	v_nom_min VARCHAR2(50):="0";
+	v_nom_min VARCHAR2(50):='';
 	v_nota_min NUMBER:=11;
 BEGIN
     OPEN c_notas;
@@ -38,7 +38,7 @@ BEGIN
     END LOOP;
     CLOSE c_notas;
    MostrarResultados(cont_sus, cont_ap, cont_not, cont_sob, v_nom_max, v_nota_max, v_nom_min, v_nota_min);
-END;
+END principal;
 /
 
 CREATE OR REPLACE PROCEDURE MostrarAlumnoYNota(p_nombre alumnos.apenom%type, p_nota notas.nota%type)
