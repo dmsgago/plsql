@@ -9,8 +9,8 @@ CREATE TABLE socios (
 
 CREATE TABLE libros (
 	reflibro VARCHAR2(10),
-	nombre VARCHAR2(30),
-	autor VARCHAR2(20),
+	nombre VARCHAR2(30) NOT NULL,
+	autor VARCHAR2(20) NOT NULL,
 	genero VARCHAR2(10),
 	anyopublicacion NUMBER,
 	editorial VARCHAR2(10),
@@ -18,9 +18,9 @@ CREATE TABLE libros (
 );
 
 CREATE TABLE prestamos (
-	dni VARCHAR2(10),
-	reflibro VARCHAR2(10),
-	fechaprestamo VARCHAR2(10),
+	dni VARCHAR2(10) NOT NULL,
+	reflibro VARCHAR2(10) NOT NULL,
+	fechaprestamo VARCHAR2(10) NOT NULL,
 	duracion NUMBER(2) DEFAULT 24,
 	CONSTRAINT fk_dniprestamos FOREIGN KEY (dni) REFERENCES socios (dni),
 	CONSTRAINT fk_refprestamos FOREIGN KEY (reflibro) REFERENCES libros (reflibro),
