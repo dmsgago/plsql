@@ -69,6 +69,9 @@ BEGIN
 	WHILE c_masprestados%ROWCOUNT<=4 LOOP
 		MostrarLibro(v_prestado.reflibro, v_prestado.NumPrestamos);
 		MostrarSocios(v_prestado.reflibro);
+	FETCH c_masprestados INTO v_prestado;
+	END LOOP;
+	CLOSE c_masprestados;
 END listadocuatromasprestados;
 
 -- Procedimiento para comprobar excepciones
@@ -107,7 +110,7 @@ BEGIN
 	END IF;
 END ComprobarExistencias;
 
--- Muestra los libros mas prestados
+-- Muestra informacion sobre los libros
 CREATE OR REPLACE PROCEDURE MostrarLibro(p_idlibro, p_numsocios)
 IS
 v_nombre libros.nombre%TYPE;
@@ -119,3 +122,22 @@ BEGIN
 	
 	dbms_output.put_line(v_nombre||' '||p_numsocios||' '||v_genero);
 END MostrarLibro;
+
+-- Muestra los socios del libro pasado como parametro
+CREATE OR REPLACE PROCEDURE MostrarSocios(p_idlibro)
+IS
+	CURSOR c_sociosporlibro
+	IS
+		SELECT dni, fechaprestamo
+		FROM prestamos
+		WHERE reflibro=p_idlibro;
+	v_infosocio c_sociosporlibro%ROWTYPE;
+BEGIN
+	OPEN c_sociosporlibro;
+	FETCH c_sociosporlibro INTO v_infosocio;
+	WHILE c_sociosporlibro%FOUND LOOP
+		dbms_output.put_line(v_infosocio.dni||v_infosocio.fechaprestamo)
+	FETCH c_sociosporlibro INTO v_infosocio;
+	END LOOP;
+	CLOSE c_sociosporlibro;
+END MostrarSocios;
