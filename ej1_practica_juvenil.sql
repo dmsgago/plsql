@@ -27,6 +27,7 @@ CREATE TABLE prestamos (
 	CONSTRAINT pk_prestamos PRIMARY KEY (dni,reflibro,fechaprestamo)
 );
 
+
 -- Datos a insertar
 INSERT INTO socios VALUES ('000000011A','Pedro','Real Utrera',1);
 INSERT INTO socios VALUES ('000000022B','Antonio','Bulerias',2);
@@ -52,3 +53,54 @@ INSERT INTO prestamos VALUES ('000000066F','04',TO_DATE('2014/08/25','YYYY/MM/DD
 
 
 --Procedimiento para listar los 4 libro mas prestados
+CREATE OR REPLACE PROCEDURE listadocuatromasprestados
+IS
+	CURSOR c_masprestados
+	IS
+		SELECT reflibro, COUNT(*) AS NumPrestamos
+		FROM prestamos
+		GROUP BY reflibro
+		ORDER BY NumPrestamos;
+	v_prestado c_masprestados%ROWTYPE;
+BEGIN
+	ComprobarExcepcionesej1;
+	OPEN c_masprestados;
+	FETCH c_masprestados INTO v_prestado;
+	WHILE c_masprestados%ROWCOUNT<=4 LOOP
+		MostrarLibro(v_pretado.reflibro);
+		MostrarSocios(v_pretado.reflibro);
+END listadocuatromasprestados;
+
+-- Procedimiento para comprobar excepciones
+CREATE OR REPLACE PROCEDURE ComprobarExcepcionesej1
+IS
+BEGIN
+	ComprobarExistencias;
+END ComprobarExcepcionesej1;
+
+-- Procedimiento que comprueba que haya datos en las tablas
+CREATE OR REPLACE PROCEDURE ComprobarExistencias
+IS
+	cont_libros NUMBER:=0;
+	cont_socios NUMBER:=0;
+	cont_prestamos NUMBER:=0;
+BEGIN
+	SELECT COUNT(*) INTO cont_libros
+	FROM libros;
+	IF cont_libros=0 THEN
+		raise_application_error(-20001,'Tabla libros vacía');
+	END IF;
+	SELECT COUNT(*) INTO cont_socios
+	FROM socios;
+	IF cont_socios=0 THEN
+		raise_application_error(-20002,'Tabla socios vacía');
+	END IF;
+	SELECT COUNT(*) INTO cont_prestamos
+	FROM prestamos;
+	IF cont_prestamos=0 THEN
+		raise_application_error(-20003,'Tabla prestamos vacía');
+	-- Comprueba si hay menos de 4 libros prestados
+	ELSIF cont_prestamos<4 THEN
+		raise_application_error(-20003,'Hay menos de cuatro libros prestados');
+	END IF;
+END ComprobarExistencias;
