@@ -128,7 +128,7 @@ END MostrarLibro;
 /
 
 -- Muestra los socios del libro pasado como parametro
-CREATE OR REPLACE PROCEDURE MostrarSocios(p_idlibro)
+CREATE OR REPLACE PROCEDURE MostrarSocios(p_idlibro libros.reflibro%TYPE)
 IS
 	CURSOR c_sociosporlibro
 	IS
