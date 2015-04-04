@@ -73,6 +73,7 @@ BEGIN
 	END LOOP;
 	CLOSE c_masprestados;
 END listadocuatromasprestados;
+/
 
 -- Procedimiento para comprobar excepciones
 CREATE OR REPLACE PROCEDURE ComprobarExcepcionesej1
@@ -80,6 +81,7 @@ IS
 BEGIN
 	ComprobarExistencias;
 END ComprobarExcepcionesej1;
+/
 
 -- Procedimiento que comprueba que haya datos en las tablas
 CREATE OR REPLACE PROCEDURE ComprobarExistencias
@@ -109,6 +111,7 @@ BEGIN
 		raise_application_error(-20003,'Hay menos de cuatro libros prestados');
 	END IF;
 END ComprobarExistencias;
+/
 
 -- Muestra informacion sobre los libros
 CREATE OR REPLACE PROCEDURE MostrarLibro(p_idlibro, p_numsocios)
@@ -122,6 +125,7 @@ BEGIN
 	
 	dbms_output.put_line(v_nombre||' '||p_numsocios||' '||v_genero);
 END MostrarLibro;
+/
 
 -- Muestra los socios del libro pasado como parametro
 CREATE OR REPLACE PROCEDURE MostrarSocios(p_idlibro)
@@ -141,3 +145,4 @@ BEGIN
 	END LOOP;
 	CLOSE c_sociosporlibro;
 END MostrarSocios;
+/
