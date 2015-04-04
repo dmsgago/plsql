@@ -114,7 +114,7 @@ END ComprobarExistencias;
 /
 
 -- Muestra informacion sobre los libros
-CREATE OR REPLACE PROCEDURE MostrarLibro(p_idlibro, p_numsocios)
+CREATE OR REPLACE PROCEDURE MostrarLibro(p_idlibro libros.reflibro%TYPE, p_numsocios NUMBER)
 IS
 v_nombre libros.nombre%TYPE;
 v_genero libros.genero%TYPE;
@@ -140,7 +140,7 @@ BEGIN
 	OPEN c_sociosporlibro;
 	FETCH c_sociosporlibro INTO v_infosocio;
 	WHILE c_sociosporlibro%FOUND LOOP
-		dbms_output.put_line(v_infosocio.dni||v_infosocio.fechaprestamo)
+		dbms_output.put_line(v_infosocio.dni||v_infosocio.fechaprestamo);
 	FETCH c_sociosporlibro INTO v_infosocio;
 	END LOOP;
 	CLOSE c_sociosporlibro;
