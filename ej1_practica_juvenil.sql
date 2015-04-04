@@ -37,18 +37,18 @@ INSERT INTO socios VALUES ('000000066F','Dolores','Espartero',0);
 
 INSERT INTO libros VALUES ('01','Don Quijote','Cervantes','Aventura',1605,'Santillana');
 INSERT INTO libros VALUES ('02','Alatriste','Arturo','Aventura',1996,'Alfaguara');
-INSERT INTO libros VALUES ('03','Un mundo sin fin','Ken Follett','Ficcion',2007,'Plaza Janes');
+INSERT INTO libros VALUES ('03','Un mundo sin fin','Ken Follett','Ficcion',2007,'PlazaJanes');
 INSERT INTO libros VALUES ('04','Cid','Anonimo','Cantar',1200,'Catedra');
 INSERT INTO libros VALUES ('05','50 sombras','James','Novela',2011,'Grijalbo');
 
-INSERT INTO prestamos VALUES ('000000011A','02','2014/01/17',24);
-INSERT INTO prestamos VALUES ('000000022B','03','2014/01/19',24);
-INSERT INTO prestamos VALUES ('000000033C','02','2014/01/28',24);
-INSERT INTO prestamos VALUES ('000000044D','01','2014/04/11',24);
-INSERT INTO prestamos VALUES ('000000011A','03','2014/04/22',24);
-INSERT INTO prestamos VALUES ('000000055E','01','2014/06/05',24);
-INSERT INTO prestamos VALUES ('000000022B','04','2014/06/17',24);
-INSERT INTO prestamos VALUES ('000000066F','04','2014/08/25',24);
+INSERT INTO prestamos VALUES ('000000011A','02',TO_DATE('2014/01/17','YYYY/MM/DD'),24);
+INSERT INTO prestamos VALUES ('000000022B','03',TO_DATE('2014/01/19','YYYY/MM/DD'),24);
+INSERT INTO prestamos VALUES ('000000033C','02',TO_DATE('2014/01/28','YYYY/MM/DD'),24);
+INSERT INTO prestamos VALUES ('000000044D','01',TO_DATE('2014/04/11','YYYY/MM/DD'),24);
+INSERT INTO prestamos VALUES ('000000011A','03',TO_DATE('2014/04/22','YYYY/MM/DD'),24);
+INSERT INTO prestamos VALUES ('000000055E','01',TO_DATE('2014/06/05','YYYY/MM/DD'),24);
+INSERT INTO prestamos VALUES ('000000022B','04',TO_DATE('2014/06/17','YYYY/MM/DD'),24);
+INSERT INTO prestamos VALUES ('000000066F','04',TO_DATE('2014/08/25','YYYY/MM/DD'),24);
 
 
 --Procedimiento para listar los 4 libro mas prestados
