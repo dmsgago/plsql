@@ -67,8 +67,8 @@ BEGIN
 	OPEN c_masprestados;
 	FETCH c_masprestados INTO v_prestado;
 	WHILE c_masprestados%ROWCOUNT<=4 LOOP
-		MostrarLibro(v_pretado.reflibro);
-		MostrarSocios(v_pretado.reflibro);
+		MostrarLibro(v_prestado.reflibro, v_prestado.NumPrestamos);
+		MostrarSocios(v_prestado.reflibro);
 END listadocuatromasprestados;
 
 -- Procedimiento para comprobar excepciones
@@ -90,11 +90,13 @@ BEGIN
 	IF cont_libros=0 THEN
 		raise_application_error(-20001,'Tabla libros vacía');
 	END IF;
+	
 	SELECT COUNT(*) INTO cont_socios
 	FROM socios;
 	IF cont_socios=0 THEN
 		raise_application_error(-20002,'Tabla socios vacía');
 	END IF;
+	
 	SELECT COUNT(*) INTO cont_prestamos
 	FROM prestamos;
 	IF cont_prestamos=0 THEN
@@ -104,3 +106,16 @@ BEGIN
 		raise_application_error(-20003,'Hay menos de cuatro libros prestados');
 	END IF;
 END ComprobarExistencias;
+
+-- Muestra los libros mas prestados
+CREATE OR REPLACE PROCEDURE MostrarLibro(p_idlibro, p_numsocios)
+IS
+v_nombre libros.nombre%TYPE;
+v_genero libros.genero%TYPE;
+BEGIN
+	SELECT nombre, genero INTO v_nombre, v_genero
+	FROM libros
+	WHERE reflibro=p_idlibro;
+	
+	dbms_output.put_line(v_nombre||' '||p_numsocios||' '||v_genero);
+END MostrarLibro;
