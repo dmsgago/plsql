@@ -69,7 +69,7 @@ BEGIN
 	WHILE c_masprestados%ROWCOUNT<=4 LOOP
 		MostrarLibro(v_prestado.reflibro, v_prestado.NumPrestamos);
 		MostrarSocios(v_prestado.reflibro);
-	FETCH c_masprestados INTO v_prestado;
+		FETCH c_masprestados INTO v_prestado;
 	END LOOP;
 	CLOSE c_masprestados;
 END listadocuatromasprestados;
@@ -140,7 +140,7 @@ BEGIN
 	OPEN c_sociosporlibro;
 	FETCH c_sociosporlibro INTO v_infosocio;
 	WHILE c_sociosporlibro%FOUND LOOP
-		dbms_output.put_line(v_infosocio.dni||v_infosocio.fechaprestamo);
+		dbms_output.put_line(v_infosocio.dni||' '||v_infosocio.fechaprestamo);
 	FETCH c_sociosporlibro INTO v_infosocio;
 	END LOOP;
 	CLOSE c_sociosporlibro;
