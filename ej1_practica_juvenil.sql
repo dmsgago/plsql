@@ -66,7 +66,7 @@ BEGIN
 	ComprobarExcepcionesej1;
 	OPEN c_masprestados;
 	FETCH c_masprestados INTO v_prestado;
-	WHILE c_masprestados%ROWCOUNT<=4 LOOP
+	WHILE c_masprestados%FOUND AND c_masprestados%ROWCOUNT<=4 LOOP
 		MostrarLibro(v_prestado.reflibro, v_prestado.NumPrestamos);
 		MostrarSocios(v_prestado.reflibro);
 		FETCH c_masprestados INTO v_prestado;
