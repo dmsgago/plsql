@@ -86,22 +86,45 @@ END ComprobarExcepcionesej1;
 -- Procedimiento que comprueba que haya datos en las tablas
 CREATE OR REPLACE PROCEDURE ComprobarExistencias
 IS
-	cont_libros NUMBER:=0;
-	cont_socios NUMBER:=0;
 	cont_prestamos NUMBER:=0;
+BEGIN
+	ComprobarLibrosVacia
+	ComprobarSociosVacia
+	ComprobarPrestamos
+END ComprobarExistencias;
+/
+
+-- Comprobar si la tabla libro está vacía
+CREATE OR REPLACE PROCEDURE ComprobarLibrosVacia
+IS
+	cont_libros NUMBER:=0;
 BEGIN
 	SELECT COUNT(*) INTO cont_libros
 	FROM libros;
 	IF cont_libros=0 THEN
 		raise_application_error(-20001,'Tabla libros vacía');
 	END IF;
-	
+END ComprobarLibrosVacia;
+/
+
+-- Comprobar si la tabla socios está vacía
+CREATE OR REPLACE PROCEDURE ComprobarSociosVacia
+IS
+	cont_socios NUMBER:=0;
+BEGIN
 	SELECT COUNT(*) INTO cont_socios
 	FROM socios;
 	IF cont_socios=0 THEN
 		raise_application_error(-20002,'Tabla socios vacía');
 	END IF;
-	
+END ComprobarSociosVacia;
+/
+
+-- Comprobar la tabla prestamos
+CREATE OR REPLACE PROCEDURE ComprobarPrestamos
+IS
+	cont_prestamos NUMBER:=0;
+BEGIN
 	SELECT COUNT(*) INTO cont_prestamos
 	FROM prestamos;
 	IF cont_prestamos=0 THEN
@@ -110,7 +133,7 @@ BEGIN
 	ELSIF cont_prestamos<4 THEN
 		raise_application_error(-20004,'Hay menos de cuatro libros prestados');
 	END IF;
-END ComprobarExistencias;
+END ComprobarPrestamos;
 /
 
 -- Muestra informacion sobre los libros
