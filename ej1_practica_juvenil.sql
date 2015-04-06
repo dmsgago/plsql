@@ -108,7 +108,7 @@ BEGIN
 		raise_application_error(-20003,'Tabla prestamos vacía');
 	-- Comprueba si hay menos de 4 libros prestados
 	ELSIF cont_prestamos<4 THEN
-		raise_application_error(-20003,'Hay menos de cuatro libros prestados');
+		raise_application_error(-20004,'Hay menos de cuatro libros prestados');
 	END IF;
 END ComprobarExistencias;
 /
